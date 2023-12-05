@@ -62,14 +62,13 @@ for k in range(100):
     total_loss, acc = loss()
     
     # backward
-    for p in model.parameters():
-        p.grad = 0
+    model.zero_grad()
     total_loss.backward()
     
     # update (sgd)
     learning_rate = 1-0.9*k/100
     for p in model.parameters():
-        p.data -= learning_rate * p.grad
+        p.data -= learning_rate*p.grad
     
     if k % 1 == 0:
         print(f"step {k} loss {total_loss.data}, accuracy {acc*100}%")
