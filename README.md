@@ -14,16 +14,11 @@
 
  To run the vanilla python files:
 
- Download this repo
-
- cd to the folder "neural-network-from-scratch"
-
- command cd "Vanilla Python Implementation"
-
- commend cd "Python Files"
-
- command python training_adv_ex.py
-
+ 1. Download this repo
+ 2. cd to the folder "neural-network-from-scratch"
+ 3. cd "Vanilla Python Implementation"
+ 4. cd "Python Files"
+ 5. python training_adv_ex.py
 
 ## Contact
  If you want to contact me, you can reach me at [Linkedin](https://www.linkedin.com/in/swagam-dasgupta-18a36a10b/) or [X/Twitter](https://twitter.com/Swagam_Dasgupta).
