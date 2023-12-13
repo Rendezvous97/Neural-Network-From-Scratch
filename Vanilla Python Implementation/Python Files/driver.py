@@ -1,5 +1,10 @@
 import math
 
+# Class Value stores the data structures, operations and, most importantly,
+# the gradient calculation for each operation using teh chain rule, and, 
+# the main backward function that uses topological sort and chains through each
+# backward function to get the gradients for each variable
+
 class Value:
 
     def __init__(self, data, _children=[], _op=''):
@@ -7,7 +12,7 @@ class Value:
         self.grad = 0.0
         self._prev = set(_children)
         self._op = _op
-        self._backward = lambda: None
+        self._backward = lambda: None # Stores the derivative function for the particular operation
 
     def __repr__(self):
         return (f"Value={self.data}")
@@ -37,8 +42,8 @@ class Value:
         out = Value((self.data * other.data), [self, other], '*')
 
         def _backward():
-            self.grad += other.data * out.grad
-            other.grad += self.data * out.grad
+            self.grad += other.data * out.grad # if o = a*b, the do/da = b
+            other.grad += self.data * out.grad # if o = a*b, the db/da = a
         out._backward = _backward
 
         return out
@@ -86,6 +91,9 @@ class Value:
         
         return out
     
+
+    # Topological sorting to go from the output and move backwards to the initial input.
+    # Then the backward function propagates through each node until the first
     def backward(self):
         topo = []
         visited = set()
@@ -99,6 +107,6 @@ class Value:
 
         build_topo(self)
 
-        self.grad = 1.0
+        self.grad = 1.0 # self.grad is 1.0 because self is the main output and the derivative of the output by the output is 1
         for node in reversed(topo):
             node._backward()        
